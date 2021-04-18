@@ -92,7 +92,7 @@ class Environment(gym.Env):
         self.is_done = False
         self.printed_score = False
 
-        obs, reward, is_done, _ = self.step(0)
+        obs, reward, is_done = self.step(0)
 
         return obs
 
@@ -101,6 +101,7 @@ class Environment(gym.Env):
 
         if isinstance(action, np.ndarray):
             if action[0] > action[1]:
+                # probability to action
                 action = 0
             else:
                 action = 1
@@ -114,7 +115,7 @@ class Environment(gym.Env):
                 self.time_elapsed_since_last_action += dt
 
             self.global_time += 1
-            o, r, d, _ = self.run_ai_game_step(action)
+            o, r, d = self.run_ai_game_step(action)
             rew += r
 
             for j in range(len(o)):
@@ -129,7 +130,7 @@ class Environment(gym.Env):
 
         obs = np.array(obs)
 
-        return obs, rew, d, _
+        return obs, rew, d
 
     def run_ai_game_step(self, action):
 
@@ -149,7 +150,6 @@ class Environment(gym.Env):
             if pipe.hits(self.bird):
                 self.game_over()
                 current_reward = -1
-                # hit_pipe = True
 
             if pipe.behind(self.bird):
                 self.reward += 1
@@ -161,7 +161,6 @@ class Environment(gym.Env):
             current_reward = -1
 
         if self.draw:
-            # self.screen.fill(BACKGROUND)
             self.screen.blit(self.bg, (0, 0))
             for pipe in self.pipes:
                 pipe.draw()
@@ -179,7 +178,7 @@ class Environment(gym.Env):
 
         self.time_elapsed_since_last_action = 0
 
-        return obs, current_reward, self.is_done, None
+        return obs, current_reward, self.is_done
 
     def get_observation_space(self):
 
