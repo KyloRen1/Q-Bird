@@ -1,6 +1,6 @@
 import time
 from dqn import DQN
-from environments import Environment
+from flappy_bird_env import Environment
 import torch
 import numpy as np
 import argparse
