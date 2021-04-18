@@ -31,8 +31,8 @@ class Actions(enum.Enum):
 
 class Environment(gym.Env):
 
-    def __init__(self, draw=True, fps=10, debug=False,
-                 dist_to_pipe=150, dist_between_pipes=220, obs_this_pipe=True):
+    def __init__(self, draw=False, fps=10, debug=False,
+                 dist_to_pipe=150, dist_between_pipes=220, obs_this_pipe=False):
 
         super(Environment, self).__init__()
         self.observation_space = gym.spaces.Discrete(n=OBSERVATION_SIZE * BUFFER_SIZE)
