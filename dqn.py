@@ -17,20 +17,14 @@ class DQN(nn.Module):
 
         self.relu = nn.ReLU()
 
-        os.makedirs('model_weights', exist_ok=True)
-        self.checkpoint_file = os.path.join('model_weights', 'dqn')
-
     def forward(self, observation):
         x = self.relu(self.fc1(observation))
         x = self.relu(self.fc2(x))
         x = self.fc3(x)
         return x
 
-    def save_checkpoint(self):
-        torch.save(self.state_dict(), self.checkpoint_file)
-
-    def load_checkpoint(self):
-        self.load_state_dict(torch.load(self.checkpoint_file))
+    def load_checkpoint(self, checkpoint_path):
+        self.load_state_dict(torch.load(checkpoint_path))
 
 class ReplayMemory(object):
     def __init__(self, capacity):
