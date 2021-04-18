@@ -24,18 +24,6 @@ PIPE_COLOR = (44, 176, 26)
 FONT = 'dyuthi'
 
 
-"""
-Interace:
-reset():                resets the whole environment
-step(action):           performs one action onto the environment
-step_buffer(action):    performs one action on the environment,
-                        returns 4 states
-get_action_random():    obtain an imporoved random action
-get_observation_size(): obtain size of observation
-get_action_size():      obtain size of action
-"""
-
-
 class Actions(enum.Enum):
     Skip = 0
     Fly = 1
@@ -89,6 +77,7 @@ class Environment(gym.Env):
         self.printed_score = False
 
     def reset(self):
+        # resets the whole environment
 
         self.clock = pygame.time.Clock()
         self.time_elapsed_since_last_action = 0
@@ -108,6 +97,7 @@ class Environment(gym.Env):
         return obs
 
     def step(self, action):
+        # performs one action onto the environment
 
         if isinstance(action, np.ndarray):
             if action[0] > action[1]:
