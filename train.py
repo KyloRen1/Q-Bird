@@ -6,8 +6,9 @@ import numpy as np
 import argparse
 
 def parse_arguments():
-	parser.add_argument('--n_episodes', default=500, type=int)
-	parser.add_argument('--device', default=False, choice=['cpu', 'cuda'])
+	parser = argparse.ArgumentParser()
+	parser.add_argument('--n_episodes', default=5, type=int)
+	parser.add_argument('--device', default='cpu', choices=['cpu', 'cuda'])
 	parser.add_argument('--fps', default=1, type=int)
 	parser.add_argument('--dist_to_pipe', default=50, type=int)
 	parser.add_argument('--debug', default=True, type=bool)
@@ -15,7 +16,9 @@ def parse_arguments():
 
 if __name__ == '__main__':
 	args = parse_arguments()
-	env = Environment(args.fps=1, args.debug=True, args.dist_to_pipe=50)
+	args.device = torch.device(args.device)
+
+	env = Environment(fps=args.fps, debug=args.debug, dist_to_pipe=args.dist_to_pipe)
 	agent_model = DQN(env.observation_space.n, env.action_space.n).to(args.device)
 
 	best_reward = 0.0
