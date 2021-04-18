@@ -5,7 +5,7 @@ class Bird():
 
     def __init__(self, screen, s_width, s_height, color):
 
-        self.bird_image = pygame.image.load("environments/assets/bird.png")
+        self.bird_image = pygame.image.load("flappy_bird_env/assets/bird.png")
         self.rotate = 1
 
         self.screen = screen

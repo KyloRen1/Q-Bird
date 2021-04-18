@@ -46,12 +46,12 @@ class Environment(gym.Env):
             pygame.display.set_caption('NN FlappyB')
 
             self.font_game_over = pygame.font.SysFont("ani", 72)
-            self.bg = pygame.image.load("environments/assets/bg.png")
+            self.bg = pygame.image.load("flappy_bird_env/assets/bg.png")
 
             self.pipe_image_up = pygame.image.load(
-                "environments/assets/pipe.png")
+                "flappy_bird_env/assets/pipe.png")
             self.pipe_image_down = pygame.image.load(
-                "environments/assets/pipe_long.png")
+                "flappy_bird_env/assets/pipe_long.png")
 
         self.dist_between_pipes = dist_between_pipes
 
