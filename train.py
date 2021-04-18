@@ -17,16 +17,16 @@ if __name__ == '__main__':
 
 	best_reward = 0.0
 	#for i in range(args.n_episodes):
-	for i in range(10):
+	for i in range(5):
 		state = env.reset()
 		print(state)
 		total_reward = 0.0
 
 		while True:
-			state = torch.tensor(np.array([state], copy=False))
+			state = torch.tensor(np.array([state], copy=False)).float()
 
 			q_values = agent_model(state)
-			action = action_selection(q_values)
+			action = q_values.max(1)[1].view(1, 1)
 
 			state, reward, done, _ = env.step(action)
 			total_reward += reward
@@ -34,8 +34,8 @@ if __name__ == '__main__':
 			if done:
 				break
 
-		#if total_reward > best_reward:
-
+		if total_reward > best_reward:
+			agent_model.save_checkpoint()
 
 
 		print(f'Total reward: {total_reward}')
