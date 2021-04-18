@@ -1,4 +1,5 @@
 import torch.nn as nn
+from collections import namedtuple
 
 
 Transition = namedtuple('Transition',
@@ -6,9 +7,10 @@ Transition = namedtuple('Transition',
 
 class DQN(nn.Module):
 	def __init__(self, input_shape, n_actions, fc1_output=64, fc2_output=64):
-		self.fc1 = nn.Linear(input_shape, fc1_output)
-		self.fc2 = nn.Linear(fc1_output, fc2_output)
-		self.fc3 = nn.Linear(fc2_output, n_actions)
+		super().__init__()
+		self.fc1 = nn.Linear(in_features=input_shape, out_features=fc1_output)
+		self.fc2 = nn.Linear(in_features=fc1_output, out_features=fc2_output)
+		self.fc3 = nn.Linear(in_features=fc2_output, out_features=n_actions)
 
 		self.relu = nn.ReLU()
 
